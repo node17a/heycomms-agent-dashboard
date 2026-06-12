@@ -11,7 +11,7 @@ export function SupplierGrid() {
           <h2 className="text-lg font-bold text-foreground">Suggested suppliers</h2>
           <p className="mt-0.5 text-sm text-muted-foreground">Matched to your budget and date</p>
         </div>
-        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+        <span className="rounded-full bg-people-soft px-3 py-1 text-xs font-medium text-people-foreground">
           {SUPPLIERS.length} matches
         </span>
       </div>
@@ -20,16 +20,16 @@ export function SupplierGrid() {
         {SUPPLIERS.map((s) => (
           <article
             key={s.name}
-            className="group flex items-center justify-between rounded-2xl border border-hairline bg-background p-4 transition-colors hover:border-primary"
+            className="group flex items-center justify-between rounded-2xl border border-hairline bg-background p-4 transition-colors hover:border-people"
           >
             <div className="min-w-0">
-              <span className="text-[0.7rem] font-semibold tracking-wide text-muted-foreground">{s.category}</span>
+              <span className="text-[0.7rem] font-semibold tracking-wide text-people">{s.category}</span>
               <h3 className="truncate font-semibold text-foreground">{s.name}</h3>
               <p className="mt-0.5 font-mono text-sm tabular-nums text-foreground">{s.priceRange}</p>
             </div>
             <button
               type="button"
-              className="flex shrink-0 items-center gap-1 rounded-full bg-foreground px-3 py-2 text-xs font-medium text-background transition-transform group-hover:scale-105"
+              className="flex shrink-0 items-center gap-1 rounded-full bg-people px-3 py-2 text-xs font-medium text-people-foreground transition-transform group-hover:scale-105"
             >
               {s.contact}
               <ArrowUpRight className="size-3.5" />

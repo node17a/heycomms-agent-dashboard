@@ -24,7 +24,7 @@ export function BrandingKit({ setup, dateLabel }: { setup: EventSetup; dateLabel
             {handle}
           </span>
           <span className="flex items-center gap-1.5 text-foreground">
-            <Users className="size-4 text-muted-foreground" />
+            <Users className="size-4 text-people" />
             {setup.attendance || "TBC"} guests
           </span>
           <span className="flex items-center gap-1.5 text-foreground">
@@ -36,11 +36,12 @@ export function BrandingKit({ setup, dateLabel }: { setup: EventSetup; dateLabel
 
       <div className="mt-4 flex items-center gap-3">
         <div className="flex gap-1.5" aria-label="Suggested palette">
+          <span className="size-7 rounded-full bg-lime ring-2 ring-primary-foreground" />
+          <span className="size-7 rounded-full bg-money ring-2 ring-primary-foreground" />
+          <span className="size-7 rounded-full bg-people ring-2 ring-primary-foreground" />
           <span className="size-7 rounded-full bg-foreground ring-2 ring-primary-foreground" />
-          <span className="size-7 rounded-full bg-primary-foreground ring-2 ring-primary-foreground" />
-          <span className="size-7 rounded-full bg-secondary ring-2 ring-primary-foreground" />
         </div>
-        <p className="text-sm text-primary-foreground/80">Suggested palette + tone of voice</p>
+        <p className="text-sm text-primary-foreground/80">Brand palette + tone of voice</p>
       </div>
     </section>
   )

@@ -7,8 +7,8 @@ import { getCountdownMessages, type EventSetup, type CountdownMessage } from "@/
 
 const PLATFORM_STYLES: Record<CountdownMessage["platform"], string> = {
   WHATSAPP: "bg-primary text-primary-foreground",
-  INSTAGRAM: "bg-primary text-primary-foreground",
-  EMAIL: "bg-primary text-primary-foreground",
+  INSTAGRAM: "bg-people text-people-foreground",
+  EMAIL: "bg-money text-money-foreground",
 }
 
 export function CountdownMessages({ setup }: { setup: EventSetup }) {

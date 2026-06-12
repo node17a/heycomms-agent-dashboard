@@ -4,11 +4,11 @@ import type { EventSetup } from "@/lib/event-store"
 import { BUDGET_SEGMENTS, formatBudget } from "@/lib/event-store"
 
 const SEGMENT_CLASSES = [
+  "bg-money",
   "bg-primary",
-  "bg-accent-foreground",
-  "bg-foreground",
+  "bg-money/60",
   "bg-muted-foreground",
-  "bg-secondary-foreground",
+  "bg-money/30",
 ]
 
 export function BudgetBreakdown({ setup }: { setup: EventSetup }) {
@@ -21,7 +21,7 @@ export function BudgetBreakdown({ setup }: { setup: EventSetup }) {
           <h2 className="text-lg font-bold text-foreground">Budget breakdown</h2>
           <p className="mt-0.5 text-sm text-muted-foreground">Suggested allocation</p>
         </div>
-        <span className="rounded-full bg-primary px-3 py-1 text-sm font-bold text-primary-foreground">
+        <span className="rounded-full bg-money px-3 py-1 text-sm font-bold text-money-foreground">
           {formatBudget(setup.budget)}
         </span>
       </div>

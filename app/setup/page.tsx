@@ -76,8 +76,8 @@ export default function SetupPage() {
           </Field>
 
           <Field label="Society Instagram">
-            <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-lime focus-within:ring-2 focus-within:ring-lime/30">
-              <span className="pl-4 pr-1 text-sm text-muted-foreground">@</span>
+            <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-people focus-within:ring-2 focus-within:ring-people/30">
+              <span className="pl-4 pr-1 text-sm text-people">@</span>
               <input
                 value={form.instagram}
                 onChange={(e) => update("instagram", e.target.value)}
@@ -89,7 +89,7 @@ export default function SetupPage() {
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Expected attendance">
-              <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-lime focus-within:ring-2 focus-within:ring-lime/30">
+              <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-people focus-within:ring-2 focus-within:ring-people/30">
                 <input
                   type="number"
                   min={1}
@@ -98,15 +98,15 @@ export default function SetupPage() {
                   placeholder="400"
                   className="w-full bg-transparent py-3 pl-4 text-sm text-foreground outline-none placeholder:text-muted-foreground"
                 />
-                <span className="mr-2 shrink-0 rounded-full bg-secondary px-3 py-1 text-xs text-muted-foreground">
+                <span className="mr-2 shrink-0 rounded-full bg-people-soft px-3 py-1 text-xs text-people-foreground">
                   people
                 </span>
               </div>
             </Field>
 
             <Field label="Budget">
-              <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-lime focus-within:ring-2 focus-within:ring-lime/30">
-                <span className="pl-4 pr-1 text-sm text-muted-foreground">£</span>
+              <div className="flex items-center rounded-2xl border border-hairline bg-background focus-within:border-money focus-within:ring-2 focus-within:ring-money/30">
+                <span className="pl-4 pr-1 text-sm text-money">£</span>
                 <input
                   type="number"
                   min={0}
