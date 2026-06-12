@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   LayoutGrid,
-  CalendarDays,
   Truck,
   Palette,
   MessageSquare,
@@ -12,20 +11,37 @@ import {
 import { cn } from "@/lib/utils"
 
 const NAV = [
-  { label: "Overview",   icon: LayoutGrid,   href: "#overview"   },
-  { label: "Schedule",   icon: CalendarDays, href: "#comms"       },
-  { label: "Suppliers",  icon: Truck,         href: "#suppliers"  },
-  { label: "Comms",      icon: MessageSquare, href: "#comms"      },
-  { label: "Branding",   icon: Palette,       href: "#branding"   },
+  { label: "Overview",  icon: LayoutGrid,    id: "overview"  },
+  { label: "Comms",     icon: MessageSquare, id: "comms"     },
+  { label: "Suppliers", icon: Truck,          id: "suppliers" },
+  { label: "Branding",  icon: Palette,        id: "branding"  },
 ]
 
 export function DashboardSidebar() {
-  const [active, setActive] = useState("Overview")
+  const [active, setActive] = useState("overview")
 
-  function handleNav(label: string, href: string) {
-    setActive(label)
-    // Smooth-scroll to the section if it exists
-    const id = href.replace("#", "")
+  // Keep active in sync with scroll position
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+
+    NAV.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActive(id)
+        },
+        { threshold: 0.3 },
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach((o) => o.disconnect())
+  }, [])
+
+  function handleNav(id: string) {
+    setActive(id)
     const el = document.getElementById(id)
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -37,17 +53,20 @@ export function DashboardSidebar() {
       className="sticky top-6 z-20 m-4 hidden h-[calc(100vh-2rem)] w-16 flex-col items-center justify-between rounded-[2rem] bg-sidebar py-5 sm:flex"
       aria-label="Dashboard navigation"
     >
-      {/* Logo mark */}
       <div className="flex flex-col items-center gap-6">
-        <img src="/logo.png" alt="COMMS" className="h-7 w-auto mix-blend-multiply dark:mix-blend-screen" aria-label="COMMS" />
+        <img
+          src="/logo.png"
+          alt="COMMS"
+          className="h-7 w-auto mix-blend-multiply dark:mix-blend-screen"
+        />
 
         <nav className="flex flex-col items-center gap-1" role="navigation">
-          {NAV.map(({ label, icon: Icon, href }) => {
-            const isActive = active === label
+          {NAV.map(({ label, icon: Icon, id }) => {
+            const isActive = active === id
             return (
-              <div key={label} className="group relative">
+              <div key={id} className="group relative">
                 <button
-                  onClick={() => handleNav(label, href)}
+                  onClick={() => handleNav(id)}
                   aria-label={label}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
