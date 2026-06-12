@@ -37,106 +37,21 @@ export default function SetupPage() {
   }
 
   const handle = form.instagram.replace(/^@/, "").trim()
-  const eventName = form.name.trim() || "Your event"
-  const eventDesc = form.description.trim() || "Add a description to preview your event identity."
 
   return (
-    <main className="relative flex min-h-screen bg-background">
+    <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-14 sm:px-10">
       <Blobs />
 
-      {/* ── Left panel: live preview ─────────────────────── */}
-      <div className="relative z-10 hidden w-[44%] flex-col items-center justify-center bg-primary px-12 py-16 lg:flex">
-        {/* Wordmark */}
-        <div className="absolute left-8 top-8 flex items-center gap-2">
-          <span className="flex size-8 items-center justify-center rounded-full bg-lime text-sm font-bold text-lime-foreground">
-            H
-          </span>
-          <span className="text-sm font-semibold text-primary-foreground">HeyComms</span>
-        </div>
-
-        <div className="w-full max-w-xs">
-          <p className="eyebrow mb-6 text-primary-foreground/50">Live preview</p>
-
-          {/* Instagram profile card */}
-          <div className="overflow-hidden rounded-3xl bg-primary-foreground">
-            {/* Fake IG header gradient */}
-            <div className="h-24 bg-gradient-to-br from-people via-lime to-money opacity-90" />
-
-            <div className="px-5 pb-5">
-              {/* Avatar */}
-              <div className="-mt-8 flex items-end justify-between">
-                <div className="flex size-16 items-center justify-center rounded-full border-4 border-primary-foreground bg-lime text-2xl font-bold text-lime-foreground">
-                  {(form.name.trim() || "E").charAt(0).toUpperCase()}
-                </div>
-                <button
-                  type="button"
-                  disabled
-                  className="rounded-full border border-hairline px-4 py-1.5 text-xs font-semibold text-foreground"
-                >
-                  Follow
-                </button>
-              </div>
-
-              {/* Handle + name */}
-              <div className="mt-3">
-                <p className="text-base font-bold leading-tight text-foreground">
-                  {eventName}
-                </p>
-                <p className="mt-0.5 flex items-center gap-1 text-sm text-people">
-                  <AtSign className="size-3.5" />
-                  {handle || "yourhandle"}
-                </p>
-              </div>
-
-              {/* Bio */}
-              <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-muted-foreground">
-                {eventDesc}
-              </p>
-
-              {/* Stats row */}
-              <div className="mt-4 flex gap-4 border-t border-hairline pt-4 text-center text-xs">
-                <div>
-                  <p className="font-bold text-foreground">{form.attendance || "—"}</p>
-                  <p className="text-muted-foreground">guests</p>
-                </div>
-                <div>
-                  <p className="font-bold text-money">
-                    {form.budget ? `£${Number(form.budget).toLocaleString()}` : "—"}
-                  </p>
-                  <p className="text-muted-foreground">budget</p>
-                </div>
-                <div>
-                  <p className="font-bold text-foreground">
-                    {form.date
-                      ? new Date(form.date + "T00:00:00").toLocaleDateString("en-GB", {
-                          day: "numeric",
-                          month: "short",
-                        })
-                      : "—"}
-                  </p>
-                  <p className="text-muted-foreground">date</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <p className="mt-6 text-xs leading-relaxed text-primary-foreground/50">
-            Fill in the form to see your event identity come to life. The agent uses this to generate your plan.
-          </p>
-        </div>
+      {/* Wordmark */}
+      <div className="absolute left-6 top-6 flex items-center gap-2">
+        <span className="flex size-8 items-center justify-center rounded-full bg-lime text-sm font-bold text-lime-foreground">
+          H
+        </span>
+        <span className="text-sm font-semibold text-foreground">HeyComms</span>
       </div>
 
-      {/* ── Right panel: form ────────────────────────────── */}
-      <div className="relative z-10 flex flex-1 items-center justify-center px-4 py-14 sm:px-10">
-        {/* Mobile wordmark */}
-        <div className="absolute left-5 top-6 flex items-center gap-2 lg:hidden">
-          <span className="flex size-7 items-center justify-center rounded-full bg-lime text-xs font-bold text-lime-foreground">
-            H
-          </span>
-          <span className="text-sm font-semibold text-foreground">HeyComms</span>
-        </div>
-
-        <form onSubmit={handleSubmit} className="w-full max-w-md">
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="relative z-10 w-full max-w-lg">
           <div className="mb-8">
             <h1 className="text-balance text-3xl font-bold leading-tight text-foreground">
               Tell us about your event
@@ -248,7 +163,6 @@ export default function SetupPage() {
 
           <p className="mt-3 text-center text-xs text-muted-foreground">Takes about 10 seconds.</p>
         </form>
-      </div>
     </main>
   )
 }
