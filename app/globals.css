@@ -175,12 +175,11 @@
   .nums {
     font-variant-numeric: tabular-nums;
   }
-  /* Section eyebrow — never monospace */
+  /* Section eyebrow — inherits currentColor so it works on any background */
   .eyebrow {
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.09em;
-    color: var(--muted-foreground);
   }
 }
