@@ -3,13 +3,14 @@
 import type { EventSetup } from "@/lib/event-store"
 import { BUDGET_SEGMENTS, formatBudget } from "@/lib/event-store"
 
-const SEGMENT_CLASSES = [
-  "bg-money",
-  "bg-primary",
-  "bg-money/60",
-  "bg-muted-foreground",
-  "bg-money/30",
-]
+// One explicit colour per segment — mapped by label so it's stable regardless of order
+const SEGMENT_COLOURS: Record<string, { bar: string; dot: string }> = {
+  VENUE:       { bar: "bg-money",         dot: "bg-money" },
+  CATERING:    { bar: "bg-lime",           dot: "bg-lime" },
+  MARKETING:   { bar: "bg-people",        dot: "bg-people" },
+  AV:          { bar: "bg-foreground",    dot: "bg-foreground" },
+  CONTINGENCY: { bar: "bg-muted-foreground", dot: "bg-muted-foreground" },
+}
 
 export function BudgetBreakdown({ setup }: { setup: EventSetup }) {
   const total = Number(setup.budget) || 0
@@ -27,10 +28,10 @@ export function BudgetBreakdown({ setup }: { setup: EventSetup }) {
       </div>
 
       <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full bg-muted">
-        {BUDGET_SEGMENTS.map((seg, i) => (
+        {BUDGET_SEGMENTS.map((seg) => (
           <div
             key={seg.label}
-            className={SEGMENT_CLASSES[i % SEGMENT_CLASSES.length]}
+            className={SEGMENT_COLOURS[seg.label]?.bar ?? "bg-muted-foreground"}
             style={{ width: `${seg.pct}%` }}
             aria-hidden="true"
           />
@@ -38,11 +39,11 @@ export function BudgetBreakdown({ setup }: { setup: EventSetup }) {
       </div>
 
       <ul className="mt-5 flex flex-col gap-3">
-        {BUDGET_SEGMENTS.map((seg, i) => (
+        {BUDGET_SEGMENTS.map((seg) => (
           <li key={seg.label} className="flex items-center justify-between text-sm">
             <span className="flex items-center gap-2.5">
               <span
-                className={`size-2.5 rounded-full ${SEGMENT_CLASSES[i % SEGMENT_CLASSES.length]}`}
+                className={`size-2.5 shrink-0 rounded-full ${SEGMENT_COLOURS[seg.label]?.dot ?? "bg-muted-foreground"}`}
                 aria-hidden="true"
               />
               <span className="font-medium tracking-wide text-foreground">{seg.label}</span>

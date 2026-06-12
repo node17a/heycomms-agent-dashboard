@@ -37,16 +37,16 @@ export function StatCards({ setup, days }: { setup: EventSetup; days: number }) 
         <div
           key={c.label}
           className={cn(
-            "flex flex-col gap-3 rounded-3xl p-5",
-            c.tone === "lime" && "bg-lime text-lime-foreground",
-            c.tone === "money" && "bg-money text-money-foreground",
-            c.tone === "people" && "bg-people text-people-foreground",
-            c.tone === "black" && "bg-primary text-primary-foreground",
+            "flex flex-col justify-between gap-2 rounded-3xl p-5 min-h-[130px]",
+            c.tone === "lime"    && "bg-lime text-[#1a2400]",
+            c.tone === "money"  && "bg-money text-white",
+            c.tone === "people" && "bg-people text-white",
+            c.tone === "black"  && "bg-foreground text-background",
           )}
         >
-          <span className="eyebrow opacity-70">{c.label}</span>
-          <span className="text-3xl font-bold leading-none tabular-nums sm:text-4xl">{c.value}</span>
-          <span className="text-xs opacity-70">{c.sub}</span>
+          <span className="eyebrow opacity-60">{c.label}</span>
+          <span className="text-4xl font-bold leading-none tabular-nums">{c.value}</span>
+          <span className="text-xs opacity-60">{c.sub}</span>
         </div>
       ))}
     </div>
