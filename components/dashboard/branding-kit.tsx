@@ -1,11 +1,50 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import type { EventSetup } from "@/lib/event-store"
-import { AtSign, Users, Calendar } from "lucide-react"
+import { AtSign, Users, Calendar, ExternalLink, Loader2 } from "lucide-react"
+
+interface OEmbed {
+  author_name: string
+  thumbnail_url?: string
+}
+
+function useInstagramProfile(handle: string) {
+  const [data, setData] = useState<OEmbed | null>(null)
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle")
+
+  useEffect(() => {
+    if (!handle) { setData(null); setStatus("idle"); return }
+
+    setStatus("loading")
+    // oEmbed works by pointing at any real IG URL for the account.
+    // We use a profile URL; oEmbed returns author_name + optional thumbnail.
+    const url = `https://graph.instagram.com/oembed?url=https://www.instagram.com/${handle}/&maxwidth=200`
+
+    fetch(url)
+      .then((r) => {
+        if (!r.ok) throw new Error("not found")
+        return r.json() as Promise<OEmbed>
+      })
+      .then((d) => { setData(d); setStatus("ok") })
+      .catch(() => {
+        // Fallback: try the public (non-graph) endpoint
+        fetch(`https://www.instagram.com/oembed/?url=https://www.instagram.com/${handle}/`)
+          .then((r) => { if (!r.ok) throw new Error(); return r.json() as Promise<OEmbed> })
+          .then((d) => { setData(d); setStatus("ok") })
+          .catch(() => { setData(null); setStatus("error") })
+      })
+  }, [handle])
+
+  return { data, status }
+}
 
 export function BrandingKit({ setup, dateLabel }: { setup: EventSetup; dateLabel: string }) {
-  const handle = setup.instagram ? `@${setup.instagram}` : "@yourpage"
+  const handle = setup.instagram?.replace(/^@/, "").trim() ?? ""
+  const profileUrl = handle ? `https://instagram.com/${handle}` : null
   const initial = (setup.name || "E").charAt(0).toUpperCase()
+
+  const { data, status } = useInstagramProfile(handle)
 
   return (
     <section className="overflow-hidden rounded-3xl border border-hairline bg-primary p-5 text-primary-foreground sm:p-6">
@@ -14,37 +53,69 @@ export function BrandingKit({ setup, dateLabel }: { setup: EventSetup; dateLabel
         <span className="rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-semibold">Draft</span>
       </div>
 
-      {/* Instagram-style social preview */}
+      {/* Instagram profile preview */}
       <div className="mt-4 overflow-hidden rounded-2xl bg-primary-foreground">
-        {/* Cover gradient using the 3 brand colours */}
         <div className="h-20 bg-gradient-to-r from-people via-lime to-money" />
 
         <div className="px-4 pb-4">
-          {/* Avatar */}
           <div className="-mt-7 flex items-end justify-between">
-            <div className="flex size-14 items-center justify-center rounded-full border-[3px] border-primary-foreground bg-lime text-xl font-bold text-lime-foreground">
-              {initial}
+            {/* Avatar: real thumbnail if oEmbed returns one, else initial */}
+            <div className="size-14 overflow-hidden rounded-full border-[3px] border-primary-foreground bg-lime">
+              {status === "ok" && data?.thumbnail_url ? (
+                <img
+                  src={data.thumbnail_url}
+                  alt={handle}
+                  className="size-full object-cover"
+                />
+              ) : (
+                <span className="flex size-full items-center justify-center text-xl font-bold text-lime-foreground">
+                  {initial}
+                </span>
+              )}
             </div>
-            <a
-              href={setup.instagram ? `https://instagram.com/${setup.instagram}` : "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-hairline px-3.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-secondary"
-            >
-              Follow
-            </a>
+
+            {/* Follow / open link */}
+            {profileUrl ? (
+              <a
+                href={profileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-hairline px-3.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-secondary"
+              >
+                View on Instagram
+                <ExternalLink className="size-3" />
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="rounded-full border border-hairline px-3.5 py-1.5 text-xs font-semibold text-muted-foreground"
+              >
+                Follow
+              </button>
+            )}
           </div>
 
           {/* Name + handle */}
           <div className="mt-2.5">
-            <p className="font-bold leading-tight text-foreground">{setup.name || "Your event"}</p>
-            <p className="mt-0.5 flex items-center gap-1 text-sm text-people">
-              <AtSign className="size-3.5" />
-              {setup.instagram || "yourhandle"}
+            {/* Use oEmbed author_name if available, else fall back to setup name */}
+            <p className="font-bold leading-tight text-foreground">
+              {status === "ok" && data?.author_name ? data.author_name : setup.name || "Your event"}
             </p>
+            <div className="mt-0.5 flex items-center gap-1">
+              {status === "loading" ? (
+                <Loader2 className="size-3.5 animate-spin text-people" />
+              ) : (
+                <AtSign className="size-3.5 text-people" />
+              )}
+              <span className="text-sm text-people">{handle || "yourhandle"}</span>
+              {status === "error" && handle && (
+                <span className="ml-1 text-[10px] text-muted-foreground">(not found)</span>
+              )}
+            </div>
           </div>
 
-          {/* Description */}
+          {/* Description from setup */}
           {setup.description && (
             <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
               {setup.description}
