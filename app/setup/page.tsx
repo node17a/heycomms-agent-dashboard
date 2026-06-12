@@ -42,14 +42,10 @@ export default function SetupPage() {
     <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-14 sm:px-10">
       <Blobs />
 
-      {/* Wordmark */}
-      <div className="absolute left-6 top-6">
-        <img src="/logo.png" alt="COMMS" className="h-8 w-auto mix-blend-multiply dark:mix-blend-screen" />
-      </div>
-
       {/* Form */}
       <form onSubmit={handleSubmit} className="relative z-10 w-full max-w-lg">
           <div className="mb-8">
+            <img src="/logo.png" alt="COMMS" className="mb-5 h-10 w-auto mix-blend-multiply dark:mix-blend-screen" />
             <h1 className="text-balance text-3xl font-bold leading-tight text-foreground">
               Tell us about your event
             </h1>
