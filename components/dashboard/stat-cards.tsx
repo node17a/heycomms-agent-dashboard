@@ -1,14 +1,13 @@
 import { cn } from "@/lib/utils"
-import { formatBudget, SUPPLIERS, getCountdownMessages, type EventSetup } from "@/lib/event-store"
+import type { AgentEvent, BudgetAllocation } from "@/lib/agent-dashboard"
+import { formatBudget, SUPPLIERS } from "@/lib/event-store"
 
-export function StatCards({ setup, days }: { setup: EventSetup; days: number }) {
-  const messages = getCountdownMessages(setup)
-
+export function StatCards({ event, budget, days }: { event: AgentEvent; budget: BudgetAllocation; days: number }) {
   const cards = [
     {
       label: "Budget allocated",
-      value: formatBudget(setup.budget),
-      sub: `across ${setup.attendance || "—"} guests`,
+      value: formatBudget(String(budget.totalBudget)),
+      sub: `across ${event.expectedAttendance || "—"} guests`,
       tone: "money" as const,
     },
     {
@@ -19,7 +18,7 @@ export function StatCards({ setup, days }: { setup: EventSetup; days: number }) 
     },
     {
       label: "Countdown messages",
-      value: messages.length.toString(),
+      value: "3",
       sub: "drafted for you",
       tone: "people" as const,
     },

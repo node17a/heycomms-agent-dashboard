@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useChat } from "@ai-sdk/react"
 import { DefaultChatTransport } from "ai"
 import { Send } from "lucide-react"
+import type { BudgetAllocation } from "@/lib/agent-dashboard"
 import type { EventSetup } from "@/lib/event-store"
 
 function messageText(message: { parts?: Array<{ type: string; text?: string }> }): string {
@@ -16,7 +17,7 @@ function messageText(message: { parts?: Array<{ type: string; text?: string }> }
 
 const SUGGESTIONS = ["Draft a launch caption", "Suggest a timeline", "Help me cut costs"]
 
-export function ChatPanel({ setup }: { setup: EventSetup }) {
+export function ChatPanel({ setup, budget }: { setup: EventSetup; budget?: BudgetAllocation }) {
   const [input, setInput] = useState("")
   const [error, setError] = useState<string | null>(null)
   const { messages, sendMessage, status } = useChat({
@@ -30,7 +31,7 @@ export function ChatPanel({ setup }: { setup: EventSetup }) {
     const trimmed = text.trim()
     if (!trimmed || busy) return
     setError(null)
-    sendMessage({ text: trimmed }, { body: { event: setup } })
+    sendMessage({ text: trimmed }, { body: { event: setup, budget } })
     setInput("")
   }
 

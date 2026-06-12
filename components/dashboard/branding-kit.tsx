@@ -4,7 +4,6 @@ import type { EventSetup } from "@/lib/event-store"
 import { AtSign, Users, Calendar } from "lucide-react"
 
 export function BrandingKit({ setup, dateLabel }: { setup: EventSetup; dateLabel: string }) {
-  const handle = setup.instagram ? `@${setup.instagram}` : "@yourpage"
   const initial = (setup.name || "E").charAt(0).toUpperCase()
 
   return (

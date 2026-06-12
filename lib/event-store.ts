@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import type { AgentDashboardData } from "@/lib/agent-dashboard"
+import { setupToDashboardData as buildDashboardData } from "@/lib/budget-allocation"
 
 export interface EventSetup {
   name: string
@@ -32,6 +34,7 @@ export interface BudgetSegment {
 }
 
 const STORAGE_KEY = "heycomms:event"
+const EVENT_ID_STORAGE_KEY = "heycomms:event-id"
 
 export const DEFAULT_SETUP: EventSetup = {
   name: "Summer Grad Ball",
@@ -112,6 +115,16 @@ export function saveSetup(setup: EventSetup) {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(setup))
 }
 
+export function saveEventId(eventId: string) {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(EVENT_ID_STORAGE_KEY, eventId)
+}
+
+export function readEventId(): string | null {
+  if (typeof window === "undefined") return null
+  return window.localStorage.getItem(EVENT_ID_STORAGE_KEY)
+}
+
 export function readSetup(): EventSetup | null {
   if (typeof window === "undefined") return null
   try {
@@ -134,4 +147,8 @@ export function useEventSetup(): { setup: EventSetup; loaded: boolean } {
   }, [])
 
   return { setup, loaded }
+}
+
+export function setupToDashboardData(setup: EventSetup): AgentDashboardData {
+  return buildDashboardData(setup)
 }
