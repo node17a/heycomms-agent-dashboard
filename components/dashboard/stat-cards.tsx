@@ -27,7 +27,7 @@ export function StatCards({ setup, days }: { setup: EventSetup; days: number }) 
       label: "Until event",
       value: `D-${days}`,
       sub: "days to go",
-      tone: "black" as const,
+      tone: "neutral" as const,
     },
   ]
 
@@ -38,10 +38,10 @@ export function StatCards({ setup, days }: { setup: EventSetup; days: number }) 
           key={c.label}
           className={cn(
             "flex flex-col justify-between gap-2 rounded-3xl p-5 min-h-[130px]",
-            c.tone === "lime"   && "bg-lime   text-lime-foreground",
-            c.tone === "money"  && "bg-money  text-money-foreground",
-            c.tone === "people" && "bg-people text-people-foreground",
-            c.tone === "black"  && "bg-primary text-primary-foreground",
+            c.tone === "lime"    && "bg-lime/30 text-lime-foreground",
+            c.tone === "money"  && "bg-money-soft text-money-soft-foreground",
+            c.tone === "people" && "bg-people-soft text-people-soft-foreground",
+            c.tone === "neutral" && "bg-primary/5 text-foreground",
           )}
         >
           <span className="eyebrow opacity-60">{c.label}</span>
