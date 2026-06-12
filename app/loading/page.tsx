@@ -34,9 +34,8 @@ export default function LoadingPage() {
     <main className="relative flex min-h-screen flex-col items-center justify-center bg-background px-4 py-12">
       <Blobs />
 
-      <div className="relative z-10 mb-8 inline-flex items-center gap-1.5">
-        <span className="size-2 rounded-full bg-lime" aria-hidden="true" />
-        <span className="text-sm font-semibold uppercase tracking-label text-foreground">HeyComms</span>
+      <div className="relative z-10 mb-8">
+        <img src="/logo.png" alt="COMMS" className="h-8 w-auto mix-blend-multiply dark:mix-blend-screen" />
       </div>
 
       <div className="relative z-10 w-full max-w-md rounded-3xl border border-hairline bg-card p-8 shadow-xl shadow-black/5 sm:p-10">

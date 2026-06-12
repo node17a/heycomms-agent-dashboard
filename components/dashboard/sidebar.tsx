@@ -39,12 +39,7 @@ export function DashboardSidebar() {
     >
       {/* Logo mark */}
       <div className="flex flex-col items-center gap-6">
-        <span
-          className="flex size-9 items-center justify-center rounded-full bg-lime font-bold text-lime-foreground"
-          aria-label="HeyComms"
-        >
-          H
-        </span>
+        <img src="/logo.png" alt="COMMS" className="h-7 w-auto mix-blend-multiply dark:mix-blend-screen" aria-label="COMMS" />
 
         <nav className="flex flex-col items-center gap-1" role="navigation">
           {NAV.map(({ label, icon: Icon, href }) => {

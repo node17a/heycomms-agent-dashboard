@@ -43,11 +43,8 @@ export default function SetupPage() {
       <Blobs />
 
       {/* Wordmark */}
-      <div className="absolute left-6 top-6 flex items-center gap-2">
-        <span className="flex size-8 items-center justify-center rounded-full bg-lime text-sm font-bold text-lime-foreground">
-          H
-        </span>
-        <span className="text-sm font-semibold text-foreground">HeyComms</span>
+      <div className="absolute left-6 top-6">
+        <img src="/logo.png" alt="COMMS" className="h-8 w-auto mix-blend-multiply dark:mix-blend-screen" />
       </div>
 
       {/* Form */}
