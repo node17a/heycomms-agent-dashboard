@@ -38,19 +38,19 @@ export default function DashboardPage() {
               </p>
             </div>
             <div className="flex items-center gap-3 rounded-full border border-hairline bg-card px-4 py-2">
-              <span className="font-mono text-sm tabular-nums text-foreground">{timeLabel}</span>
+              <span className="tabular-nums text-sm text-foreground">{timeLabel}</span>
               <span className="size-1 rounded-full bg-muted-foreground" aria-hidden="true" />
               <span className="text-xs text-muted-foreground">{dateLabel}</span>
             </div>
           </header>
 
           {/* Stat cards */}
-          <div className="mt-6">
+          <div id="overview" className="mt-6 scroll-mt-6">
             <StatCards setup={setup} days={days} />
           </div>
 
           {/* Middle row */}
-          <div className="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_380px]">
+          <div id="comms" className="mt-6 grid scroll-mt-6 grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_380px]">
             <CountdownMessages setup={setup} />
             <BudgetBreakdown setup={setup} />
             <ChatPanel setup={setup} />
@@ -58,8 +58,12 @@ export default function DashboardPage() {
 
           {/* Bottom row */}
           <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <SupplierGrid />
-            <BrandingKit setup={setup} dateLabel={formatDate(setup.date)} />
+            <section id="suppliers" className="scroll-mt-6">
+              <SupplierGrid />
+            </section>
+            <section id="branding" className="scroll-mt-6">
+              <BrandingKit setup={setup} dateLabel={formatDate(setup.date)} />
+            </section>
           </div>
         </main>
       </div>

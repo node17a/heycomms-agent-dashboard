@@ -170,9 +170,17 @@
 
 @layer utilities {
   .tracking-label {
-    letter-spacing: 0.12em;
+    letter-spacing: 0.09em;
   }
   .nums {
     font-variant-numeric: tabular-nums;
+  }
+  /* Section eyebrow — never monospace */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted-foreground);
   }
 }

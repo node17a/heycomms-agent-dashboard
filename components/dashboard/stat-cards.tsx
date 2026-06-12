@@ -44,7 +44,7 @@ export function StatCards({ setup, days }: { setup: EventSetup; days: number }) 
             c.tone === "black" && "bg-primary text-primary-foreground",
           )}
         >
-          <span className="font-mono text-xs uppercase tracking-label opacity-70">{c.label}</span>
+          <span className="eyebrow opacity-70">{c.label}</span>
           <span className="text-3xl font-bold leading-none tabular-nums sm:text-4xl">{c.value}</span>
           <span className="text-xs opacity-70">{c.sub}</span>
         </div>

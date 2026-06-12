@@ -36,7 +36,7 @@ export default function LoadingPage() {
 
       <div className="relative z-10 mb-8 inline-flex items-center gap-1.5">
         <span className="size-2 rounded-full bg-lime" aria-hidden="true" />
-        <span className="font-mono text-sm uppercase tracking-label text-foreground">HeyComms</span>
+        <span className="text-sm font-semibold uppercase tracking-label text-foreground">HeyComms</span>
       </div>
 
       <div className="relative z-10 w-full max-w-md rounded-3xl border border-hairline bg-card p-8 shadow-xl shadow-black/5 sm:p-10">
@@ -96,7 +96,7 @@ export default function LoadingPage() {
         </ul>
       </div>
 
-      <p className="relative z-10 mt-6 font-mono text-xs uppercase tracking-label text-muted-foreground">
+      <p className="relative z-10 mt-6 text-xs font-semibold uppercase tracking-label text-muted-foreground">
         Powered by Claude AI
       </p>
     </main>

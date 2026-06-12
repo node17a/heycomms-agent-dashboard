@@ -19,9 +19,7 @@ export function CountdownMessages({ setup }: { setup: EventSetup }) {
     <section className="flex flex-col gap-4 rounded-3xl border border-hairline bg-card p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-bold text-foreground">Countdown messages</h2>
-        <span className="font-mono text-xs uppercase tracking-label text-muted-foreground">
-          {messages.length} drafted
-        </span>
+        <span className="eyebrow">{messages.length} drafted</span>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -47,7 +45,7 @@ export function CountdownMessages({ setup }: { setup: EventSetup }) {
                 </span>
                 <span
                   className={cn(
-                    "rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-label",
+                    "rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-label",
                     isOpen ? "bg-lime-foreground/10 text-lime-foreground" : PLATFORM_STYLES[msg.platform],
                   )}
                 >
