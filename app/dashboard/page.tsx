@@ -30,6 +30,7 @@ export default function DashboardPage() {
           {/* Top bar */}
           <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
+              <img src="/logo.png" alt="COMMS" className="mb-2 h-7 w-auto mix-blend-multiply dark:mix-blend-screen" />
               <h1 className="text-balance text-2xl font-bold leading-tight text-foreground sm:text-3xl">
                 Your {setup.name} plan is ready
               </h1>
